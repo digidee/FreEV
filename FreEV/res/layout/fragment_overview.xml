@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:weightSum="6"
+         >
+	
+	 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
+		 android:layout_marginLeft="10px"
+   	 >
+	         
+	    <TextView
+	        android:id="@+id/headertext"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="left"
+	        android:text="MONEY SAVED: "
+	        android:textSize="30px"
+	        android:textStyle="bold"
+	        android:layout_marginTop="20px"
+	        >
+    	</TextView>
+	 
+	        
+	    <TextView
+	        android:id="@+id/nok"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="left"
+	        android:text="978 NOK"
+	        android:textSize="80px"
+	        android:textStyle="normal"
+	        android:layout_marginTop="0px"
+	        >
+    	</TextView>
+    	
+	    
+	    <TextView
+	        android:id="@+id/savingfor"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="left"
+	        android:text="Saving for:"
+	        android:textSize="20px"
+	        android:textStyle="normal"
+	        android:layout_marginTop="0px"
+	        android:visibility="gone"
+	        >
+    	</TextView>
+    	
+	    <TextView
+	        android:id="@+id/savingitem"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="left"
+	        android:text=""
+	        android:textSize="20px"
+	        android:textStyle="normal"
+	        android:layout_marginTop="0px"
+	        >
+    	</TextView>
+  	
+		<ProgressBar
+			android:id="@+id/pgbAwardProgress"
+			android:layout_width="fill_parent"
+			android:layout_height="10px"    
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_marginRight="5dp" 
+			android:layout_marginLeft="5dp" 
+			android:layout_marginTop="5dp" 
+			android:layout_marginBottom="15dp" 
+			android:layout_alignParentTop="true"
+		/>
+
+
+		
+	    
+	    <Button 
+	        android:id="@+id/select"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="20px"
+	        android:textStyle="normal"
+	        android:paddingLeft="10px"
+	        android:paddingRight="10px"
+	        android:text="Select product to save for"
+	        android:background="@drawable/custom_button"
+        />
+	    
+	<!--     
+	    
+	    <Button 
+	        android:id="@+id/register"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="30px"
+	        android:textStyle="normal"
+	        android:text="Open Database"
+	        android:background="@drawable/custom_button"
+        />
+	    
+	    
+	     -->
+	    
+    	<Chronometer android:id="@+id/chronometer"
+	        android:layout_width="wrap_content"
+	        android:paddingRight="10px"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" 
+	        android:textSize="30px"
+	        android:visibility="gone"
+	        android:text="" 
+	    />
+ 	
+ 	</LinearLayout>	
+ 	
+ 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	    android:orientation="vertical"
+        	android:layout_width="match_parent"
+         	android:layout_height="match_parent"
+         	android:layout_weight="5"
+         	>
+     
+	     <Button 
+		        android:id="@+id/saving"
+	 			android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:gravity="center"
+	            android:textSize="30px"
+		        android:textStyle="bold"
+		        android:layout_marginTop="10px"
+		        android:text="Start Parking"
+		        android:background="@drawable/custom_button"
+	         />
+	     
+ 	</LinearLayout>
+ 
+ 
+ </LinearLayout>

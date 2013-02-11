@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:weightSum="6"
+    >
+    
+
+    <LinearLayout
+        android:id="@+id/group"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+    	android:orientation="vertical" 
+    	android:layout_weight="1"
+    	>
+
+     	<TextView
+	        android:id="@+id/headerlog"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Savings Log"
+	        android:textSize="40px"
+	        android:paddingLeft="10px"
+	        android:textStyle="bold"
+	        android:layout_marginTop="20px"
+	         android:layout_marginBottom="20px"
+	        >
+    	</TextView>
+
+    
+         <ListView android:id="@id/android:list"
+        		android:layout_width="match_parent"
+        		android:layout_height="wrap_content"
+       	 		android:layout_gravity="left"
+            	android:layout_weight="1"
+               	android:drawSelectorOnTop="false"/>
+
+     	<TextView android:id="@id/android:empty"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:paddingLeft="10px"
+               android:text="No records found"/>
+    
+    
+    
+    </LinearLayout>
+    
+    
+    
+    <LinearLayout
+    android:id="@+id/deletegroup"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+	android:orientation="vertical"
+	android:gravity="bottom"
+	android:layout_weight="5"
+	 >
+    
+      <Button
+            android:id="@+id/delete"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:textSize="30px"
+	        android:textStyle="bold"
+	        android:layout_marginTop="10px"
+            android:text="Delete savings log" 
+            android:background="@drawable/custom_button"
+		/>
+      
+      
+    </LinearLayout> 
+    
+
+</LinearLayout> 
