@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,14 +14,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.freespot.database.Comment;
-import com.example.freespot.database.CommentsDataSource;
+import com.example.freespot.database.Logging;
+import com.example.freespot.database.LoggingDataSource;
 
 public class ParkingLog extends ListFragment {
 	
 	private String[] values;
 	
-	private CommentsDataSource datasource;
+	private LoggingDataSource datasource;
+	
+	private static final String LOG_TAG = "freEV_Parking_Log";
 	
 
   @Override
@@ -37,17 +40,23 @@ public class ParkingLog extends ListFragment {
     */
     
     
-	   datasource = new CommentsDataSource(getActivity());
+	   datasource = new LoggingDataSource(getActivity());
 	   datasource.open();
 
-	    List<Comment> values = datasource.getAllComments();
+	    List<Logging> values = datasource.getAllLogs();
 
 	    // Use the SimpleCursorAdapter to show the
 	    // elements in a ListView
-	    ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(getActivity(),
+	    ArrayAdapter<Logging> adapter = new ArrayAdapter<Logging>(getActivity(),
 	        R.layout.rowlayout, R.id.label, values);
 	    setListAdapter(adapter);
-
+	    
+	    
+	       for (Logging logs : values) {
+	            String log = "Id: "+logs.getId()+", Name: " + logs.getName() + ", Total Costs: " + logs.getTotalCosts();
+	            // Writing to log
+	    		Log.d(LOG_TAG, "Log: "+log);
+	       }
 
 
   }
@@ -67,19 +76,15 @@ public class ParkingLog extends ListFragment {
 	       bselect.setOnClickListener(new OnClickListener() {
 	           public void onClick(View v) {
 	        	   
-	        	ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+	        	ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 
-	       	    Comment comment = null;
-	       	    
-	       	    
-	       	 /*comment = datasource.createComment("esfsefes");
-	          	adapter.add(comment);  */
-	        	
+	       	    Logging log = null;
+
 	        	
 	        	if (getListAdapter().getCount() > 0) {
-	                comment = (Comment) getListAdapter().getItem(0);
-	                datasource.deleteComment(comment);
-	                adapter.remove(comment);
+	                log = (Logging) getListAdapter().getItem(0);
+	                datasource.deleteLog(log);
+	                adapter.remove(log);
 	              }
 	        	
 	           }

@@ -27,6 +27,49 @@
 	         android:layout_marginBottom="20px"
 	        >
     	</TextView>
+    	
+     	
+     	
+     	
+     			<ProgressBar
+			android:id="@+id/pgbAwardProgress"
+			android:layout_width="fill_parent"
+			android:layout_height="10px"    
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_marginRight="5dp" 
+			android:layout_marginLeft="5dp" 
+			android:layout_marginTop="5dp" 
+			android:layout_marginBottom="15dp" 
+			android:layout_alignParentTop="true"
+		/>
+
+
+		
+	    
+	    <Button 
+	        android:id="@+id/select"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="20px"
+	        android:textStyle="normal"
+	        android:paddingLeft="10px"
+	        android:paddingRight="10px"
+	        android:text="Select product to save for"
+	        android:background="@drawable/custom_button"
+        />
+     	
+     		    <TextView
+	        android:id="@+id/savingitem"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="left"
+	        android:text=""
+	        android:textSize="20px"
+	        android:textStyle="normal"
+	        android:layout_marginTop="0px"
+	        android:layout_marginBottom="15dp" 
+	        >
+    	</TextView>
 
     
          <ListView android:id="@id/android:list"

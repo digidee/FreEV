@@ -22,14 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        
-        <activity
-	        android:name="com.example.freespot.database.TestDatabaseActivity"
-	        android:label="Register Start Values"
-	        android:screenOrientation="portrait"
-	    />
-        
+      
     </application>
 
 </manifest>

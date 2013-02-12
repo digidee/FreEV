@@ -18,10 +18,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.freespot.database.Comment;
-import com.example.freespot.database.CommentsDataSource;
+import com.example.freespot.database.Logging;
+import com.example.freespot.database.LoggingDataSource;
 
 
 
@@ -53,14 +56,24 @@ import com.example.freespot.database.CommentsDataSource;
 
 
 
-public class OverView extends ListFragment {
+public class OverView extends ListFragment implements OnSeekBarChangeListener{
 	
 
-	private ProgressBar pb;
-	private static final String LOG_TAG = "freespot_OverView";
 
+	private static final String LOG_TAG = "freEV_OverView";
+
+	private SeekBar bar; // declare seekbar object variable
+	private SeekBar bar2;
 	
-	private CommentsDataSource datasource;
+	private int totalCosts = 0, newcost =0;
+	
+	private int timebar = 0, costbar = 0, totalbar = 0;
+	
+	
+	// declare text label objects
+	private TextView textPrice, textTime, textTotal, moneySaved;
+	
+	private LoggingDataSource datasource;
 	
 	Chronometer mChronometer;
 	
@@ -92,17 +105,66 @@ public class OverView extends ListFragment {
 		//ListAdapter listAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, dataArray);
 		//setListAdapter(listAdapter);
 		
-		   datasource = new CommentsDataSource(getActivity());
+		   datasource = new LoggingDataSource(getActivity());
 		   datasource.open();
 
-		    List<Comment> values = datasource.getAllComments();
+		    List<Logging> values = datasource.getAllLogs();
 
-		    ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(getActivity(),
+		    ArrayAdapter<Logging> adapter = new ArrayAdapter<Logging>(getActivity(),
 			        R.layout.rowlayout, R.id.label, values);
 			    setListAdapter(adapter);
-  
+
+				    
+	       for (Logging logs : values) {
+	            totalCosts += logs.getTotalCosts();
+	       }
+	       
+   		Log.d(LOG_TAG, "totalCosts: "+totalCosts);
 	}
 
+	
+	
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress,
+    		boolean fromUser) {
+    	
+    	
+    	
+    	  switch (seekBar.getId()) 
+    	    {
+    	    case R.id.seekBar1:
+    	    	// change progress text label with current seekbar value
+    	    	textPrice.setText("Price: "+progress+" NOK");
+    	    	// change action text label to changing
+    	    	textTotal.setText("Total parking cost: "+bar2.getProgress()*bar.getProgress()+" NOK");    	
+    	        break;
+    	    case R.id.seekBar2:
+    	    	// change progress text label with current seekbar value
+    	    	textTime.setText("Parking time: "+progress+" hours");
+    	    	// change action text label to changing
+    	    	textTotal.setText("Total parking cost: "+bar2.getProgress()*bar.getProgress()+" NOK");    	
+    	        break;
+    	    }    	
+
+    }
+    
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    	// TODO Auto-generated method stub
+    //	textAction.setText("starting to track touch");
+    	
+    }
+    
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+    	// TODO Auto-generated method stub
+    	seekBar.setSecondaryProgress(seekBar.getProgress());
+    	//textAction.setText("Total parking cost: "+bar.getProgress()*bar2.getProgress());    	
+    	timebar = bar2.getProgress();
+    	costbar = bar.getProgress();
+    	totalbar = timebar*costbar;
+    }
+	
 	
 	
 	// 3 - 	onCreateView(LayoutInflater, ViewGroup, Bundle) creates and returns the view hierarchy associated with the fragment. 
@@ -113,29 +175,79 @@ public class OverView extends ListFragment {
 		View v = inflater.inflate(R.layout.fragment_overview, container, false);
 		
 		
-		
-		
-	    
+		//SLIDER START
+	    bar = (SeekBar)v.findViewById(R.id.seekBar1); // make seekbar object
+        bar.setOnSeekBarChangeListener(this); // set seekbar listener.
         
+	    bar2 = (SeekBar)v.findViewById(R.id.seekBar2); // make seekbar object
+        bar2.setOnSeekBarChangeListener(this); // set seekbar listener.
+        
+        // since we are using this class as the listener the class is "this"
+        
+        // make text label for progress value
+        textPrice = (TextView)v.findViewById(R.id.price);
+        // make text label for action
+        textTime = (TextView)v.findViewById(R.id.time);
+        
+        textTotal = (TextView)v.findViewById(R.id.totalprice);
+        //SLIDER END
+        
+        String totalf = totalCosts + " NOK";
+        moneySaved = (TextView)v.findViewById(R.id.nok);
+        moneySaved.setText(totalf);
+		
+
+        return v;
+	}
+	
+	
+	
+	/* 4 - 	onViewCreated(View view, Bundle savedInstanceState)
+	 *		Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned, but before any saved state has been restored in to the view.
+	 */
+	@Override
+	public void onViewCreated(View v, Bundle savedInstanceState) {
+		Log.d(LOG_TAG, "Called: onViewCreated");
+	        
+
+        /* 
+         //finding button
+         Button reg = (Button) v.findViewById(R.id.register);
+         
+         //setting onclicklistened
+         reg.setOnClickListener(new OnClickListener() {
+             public void onClick(View v) {
+         
+            	 //call shoeEcitDialog
+            	 //showEditDialog();
+            	 
+            	 //car dialog radio from main activity
+            	 ((MainActivity) getActivity()).startBase();
+             }
+         }); 
+         
+         */
+		
+		
 		   final Button startSaving = (Button) v.findViewById(R.id.saving);
 	         startSaving.setOnClickListener(new OnClickListener() {
 	             public void onClick(View v) {
 	         
-	            	 String saveText = startSaving.getText().toString();
+	            	 //String saveText = startSaving.getText().toString();
 	            	 
-	            	 if (saveText.equals("Start Parking")){
-	            		 saveText = "End Parking";
-	            		 startSaving.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button_end));
+	            	 //if (saveText.equals("Start Parking")){
+	            	//	 saveText = "End Parking";
+	            	//	 startSaving.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button_end));
 	            		 
 	            		 //Need to call chronometer from mainactivity
 	            		 //Start chronometer from current view
-	            		 ((MainActivity) getActivity()).startChronometer(v);
-	            	 }
+	            		// ((MainActivity) getActivity()).startChronometer(v);
+	            	// }
 	            		 
-	            	 else{
-	            		 saveText = "Start Parking";
+	            	// else{
+	            	//	 saveText = "Start Parking";
 
-	            		 startSaving.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
+	            		// startSaving.setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_button));
 	            		 
 
 	            		 long millichronTime = ((MainActivity) getActivity()).getTime();
@@ -155,82 +267,37 @@ public class OverView extends ListFragment {
 	            		 
 	            		 Log.d(LOG_TAG, "Called: Chronometer time: " +  formatTime);
 	            		 
-	            		 String parkTime = "Parking date: "+date+"\n"+time;
+	            		 String fixedInfo = "Parking price: " + costbar+ " Parking time: "+timebar+" Total costs: "+totalbar;
+	            		 
+	            		 String parkTime = "Parking date: "+date+"\n"+fixedInfo;
 		            		 
 	            		 //Add time to database	            		 
-	     	        	 ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
-	    	       	     Comment comment = null;
-	    	       	     comment = datasource.createComment(parkTime);
-	    	          	 adapter.add(comment);  
+	     	        	 ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
+	    	       	     Logging log = null;
+	    	       	     log = datasource.createLog(parkTime, totalbar);
+	    	          	 adapter.add(log);  
 	            		 
-	    	          	 String toastTime = "End of parking time!"+"\n"+parkTime;
+	    	          	 String toastTime = "Parking registered!"+"\n"+parkTime;
 	    	          	 Toast.makeText(OverView.this.getActivity(), toastTime, Toast.LENGTH_LONG).show();
+	    	          	 
+
+	    	        
+	    	     		Log.d(LOG_TAG, "totalcosts: "+totalCosts+ " - totalcosts+totalbar "+newcost + " - totalbar; "+totalbar);
+
+	    	     		((MainActivity) getActivity()).refreshOVerView();
 	    	          	
-	    	          	((MainActivity) getActivity()).stopChronometer(v);
-  		 
-	            	 }
+	    	         // 	((MainActivity) getActivity()).stopChronometer(v);
+		 
+	            	// }
 	            	 
 	            	 
-	            	 startSaving.setText(saveText);
+	            	 //startSaving.setText(saveText);
 	             }
 	         });   
-
 		
 		
-
-        return v;
-	}
-	
-	
-	
-	/* 4 - 	onViewCreated(View view, Bundle savedInstanceState)
-	 *		Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned, but before any saved state has been restored in to the view.
-	 */
-	@Override
-	public void onViewCreated(View v, Bundle savedInstanceState) {
-		Log.d(LOG_TAG, "Called: onViewCreated");
-	        
-        //finding progressbar
-		 pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
-		 
-		 //setting progressbar options
-		 pb.setVisibility(View.VISIBLE);
-         pb.setMax(100);
-         pb.setProgress(60);
-         pb.setIndeterminate(false);
-         
-         //finding button
-         Button bselect = (Button) v.findViewById(R.id.select);
-         
-         //setting onclicklistened
-         bselect.setOnClickListener(new OnClickListener() {
-             public void onClick(View v) {
-         
-            	 //call shoeEcitDialog
-            	 //showEditDialog();
-            	 
-            	 //car dialog radio from main activity
-            	 ((MainActivity) getActivity()).startDialogRadio();
-             }
-         }); 
-         
-        /* 
-         //finding button
-         Button reg = (Button) v.findViewById(R.id.register);
-         
-         //setting onclicklistened
-         reg.setOnClickListener(new OnClickListener() {
-             public void onClick(View v) {
-         
-            	 //call shoeEcitDialog
-            	 //showEditDialog();
-            	 
-            	 //car dialog radio from main activity
-            	 ((MainActivity) getActivity()).startBase();
-             }
-         }); 
-         
-         */
+		
+		
          
      
 	}

@@ -19,7 +19,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="left"
-	        android:text="MONEY SAVED: "
+	        android:text="TOTAL MONEY SAVED: "
 	        android:textSize="30px"
 	        android:textStyle="bold"
 	        android:layout_marginTop="20px"
@@ -32,80 +32,14 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="left"
-	        android:text="978 NOK"
+	        android:text="0 NOK"
 	        android:textSize="80px"
 	        android:textStyle="normal"
 	        android:layout_marginTop="0px"
+	        android:layout_marginBottom="50px"
 	        >
     	</TextView>
-    	
-	    
-	    <TextView
-	        android:id="@+id/savingfor"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="left"
-	        android:text="Saving for:"
-	        android:textSize="20px"
-	        android:textStyle="normal"
-	        android:layout_marginTop="0px"
-	        android:visibility="gone"
-	        >
-    	</TextView>
-    	
-	    <TextView
-	        android:id="@+id/savingitem"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="left"
-	        android:text=""
-	        android:textSize="20px"
-	        android:textStyle="normal"
-	        android:layout_marginTop="0px"
-	        >
-    	</TextView>
-  	
-		<ProgressBar
-			android:id="@+id/pgbAwardProgress"
-			android:layout_width="fill_parent"
-			android:layout_height="10px"    
-			style="?android:attr/progressBarStyleHorizontal"
-			android:layout_marginRight="5dp" 
-			android:layout_marginLeft="5dp" 
-			android:layout_marginTop="5dp" 
-			android:layout_marginBottom="15dp" 
-			android:layout_alignParentTop="true"
-		/>
 
-
-		
-	    
-	    <Button 
-	        android:id="@+id/select"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="20px"
-	        android:textStyle="normal"
-	        android:paddingLeft="10px"
-	        android:paddingRight="10px"
-	        android:text="Select product to save for"
-	        android:background="@drawable/custom_button"
-        />
-	    
-	<!--     
-	    
-	    <Button 
-	        android:id="@+id/register"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textSize="30px"
-	        android:textStyle="normal"
-	        android:text="Open Database"
-	        android:background="@drawable/custom_button"
-        />
-	    
-	    
-	     -->
 	    
     	<Chronometer android:id="@+id/chronometer"
 	        android:layout_width="wrap_content"
@@ -116,8 +50,75 @@
 	        android:visibility="gone"
 	        android:text="" 
 	    />
+  	
+
+    
+	 
+
+    	
+    	
+    	<!-- SLIDER START -->
+    	
+    	<TextView 
+    	    android:text="Price: " 
+    	    android:textAppearance="?android:attr/textAppearanceLarge" 
+    	    android:id="@+id/price" 
+    	    android:layout_height="wrap_content" 
+    	    android:layout_width="wrap_content" 
+    	    android:layout_alignParentTop="true" 
+    	    android:layout_alignParentLeft="true"
+    	    android:textSize="20px"
+    	    >
+    	</TextView>
+    	<SeekBar android:id="@+id/seekBar1" 
+    	    android:max="50" 
+    	    android:layout_width="match_parent" 
+    	    android:layout_height="wrap_content" 
+    	    android:layout_below="@+id/textView1" 
+    	    android:layout_alignParentLeft="true" 
+    	    android:layout_marginTop="10px"
+    	    >
+    	</SeekBar>
+        <TextView 
+            android:text="Parking Time:" 
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:id="@+id/time" 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:layout_below="@+id/textViewProgress" 
+            android:layout_alignParentLeft="true" 
+    	    android:layout_marginTop="10px"
+    	    android:textSize="20px"
+    	    >
+        </TextView>
+    	<SeekBar android:id="@+id/seekBar2" 
+    	    android:max="24" 
+    	    android:layout_width="match_parent" 
+    	    android:layout_height="wrap_content" 
+    	    android:layout_below="@+id/textView1" 
+    	    android:layout_alignParentLeft="true" 
+    	    android:layout_marginTop="10px"
+    	    >
+    	</SeekBar>
+    	<TextView 
+            android:text="Total Parking Price:" 
+            android:textAppearance="?android:attr/textAppearanceLarge" 
+            android:id="@+id/totalprice" 
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content" 
+            android:layout_below="@+id/textViewProgress" 
+            android:layout_alignParentLeft="true" 
+    	    android:layout_marginTop="10px"
+    	    android:textSize="25px"
+    	    >
+        </TextView>
+    	
+ 	<!-- SLIDER END -->
+
+    	
+	 	</LinearLayout>
  	
- 	</LinearLayout>	
+    
  	
  	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	    android:orientation="vertical"
@@ -125,7 +126,6 @@
          	android:layout_height="match_parent"
          	android:layout_weight="5"
          	>
-     
 	     <Button 
 		        android:id="@+id/saving"
 	 			android:layout_width="fill_parent"
@@ -134,11 +134,11 @@
 	            android:textSize="30px"
 		        android:textStyle="bold"
 		        android:layout_marginTop="10px"
-		        android:text="Start Parking"
+		        android:text="Register Saved Parking Cost"
 		        android:background="@drawable/custom_button"
 	         />
-	     
- 	</LinearLayout>
+
+	 	</LinearLayout>
  
  
  </LinearLayout>

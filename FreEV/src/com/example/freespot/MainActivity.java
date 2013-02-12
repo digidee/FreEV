@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.freespot.AlertDialogRadio.AlertPositiveListener;
 import com.example.freespot.EditNameDialog.EditNameDialogListener;
-import com.example.freespot.database.TestDatabaseActivity;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, EditNameDialogListener, AlertPositiveListener{
 	
@@ -113,20 +112,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         setProduct( savedInstanceState.getString("saveNames"));
 
     }
-    
-    
-    
-    /*
-     * testing database. calling new activity
-     * 
-     * */
-	public void startBase(){
-		Intent i = new Intent(MainActivity.this, TestDatabaseActivity.class);
-		startActivity(i);
-		
 
-	}
-     
    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,6 +125,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void refreshOVerView(){
+		OverView ov = new OverView();
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, ov).commit();
 	}
 	
 
@@ -191,8 +182,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			tv = (TextView) findViewById(R.id.savingitem);
 			tv.setVisibility(View.VISIBLE);
 			tv.setText(n);
-			tv2 = (TextView) findViewById(R.id.savingfor);
-			tv2.setVisibility(View.VISIBLE);
+			//tv2 = (TextView) findViewById(R.id.savingfor);
+			//tv2.setVisibility(View.VISIBLE);
 			selectB = (Button) findViewById(R.id.select);
 			selectB.setVisibility(View.GONE);
 		}

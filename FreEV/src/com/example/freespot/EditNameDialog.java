@@ -35,7 +35,7 @@ public class EditNameDialog extends DialogFragment implements OnEditorActionList
          Bundle savedInstanceState) {
      View view = inflater.inflate(R.layout.fragment_dialog, container);
      mEditText = (EditText) view.findViewById(R.id.txt_your_name);
-     getDialog().setTitle("Why are you hating me");
+     getDialog().setTitle("Hello");
 
      // Show soft keyboard automatically
      mEditText.requestFocus();

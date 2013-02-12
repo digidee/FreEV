@@ -2,13 +2,11 @@ package com.example.freespot;
 
 public class ProductSelection {
     static String[] code = new String[]{
-        "TV - Samsung",
-        "LG Nexus 4",
-        "Apple TV 3 Gen",
-        "Iphone 5",
-        "Ipad 4",
-        "Samsung Galaxy S3",
-        "MacBook Pro",
-        "Samsung 9 Series"
+        "TV - Samsung, 9000 NOK",
+        "LG Nexus 4, 4000 NOK",
+        "Iphone 5, 5000 NOK",
+        "Ipad 4, 3000 NOK",
+        "Samsung Galaxy S3, 3500 NOK",
+        "MacBook Pro, 15000 NOK"
     };
 }
