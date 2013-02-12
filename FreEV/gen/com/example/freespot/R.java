@@ -18,6 +18,7 @@ public final class R {
         public static final int green2=0x7f04000b;
         public static final int grey05=0x7f040006;
         public static final int grey1=0x7f040007;
+        public static final int menublue=0x7f040011;
         public static final int orange1=0x7f04000e;
         public static final int orange2=0x7f04000f;
         public static final int orange4=0x7f040002;
@@ -36,13 +37,15 @@ public final class R {
         public static final int custom_row=0x7f020003;
         public static final int custom_toast=0x7f020004;
         public static final int ic_launcher=0x7f020005;
-        public static final int no=0x7f020006;
-        public static final int ok=0x7f020007;
-        public static final int text_color=0x7f020008;
+        public static final int icon=0x7f020006;
+        public static final int no=0x7f020007;
+        public static final int ok=0x7f020008;
+        public static final int splash=0x7f020009;
+        public static final int text_color=0x7f02000a;
     }
     public static final class id {
         public static final int add=0x7f080003;
-        public static final int btn_choose=0x7f080019;
+        public static final int btn_choose=0x7f080018;
         public static final int chronometer=0x7f08000f;
         public static final int container=0x7f080000;
         public static final int delete=0x7f080004;
@@ -51,45 +54,53 @@ public final class R {
         public static final int group=0x7f080002;
         public static final int headerlog=0x7f080008;
         public static final int headertext=0x7f08000d;
-        public static final int label=0x7f08001a;
+        public static final int label=0x7f080019;
         public static final int lbl_your_name=0x7f080006;
-        public static final int menu_settings=0x7f08001d;
+        public static final int llRegInt=0x7f080011;
+        public static final int menu_settings=0x7f08001c;
         public static final int newtime=0x7f080001;
         public static final int nok=0x7f08000e;
         public static final int pgbAwardProgress=0x7f080009;
-        public static final int price=0x7f080010;
-        public static final int saving=0x7f080017;
+        public static final int price=0x7f080012;
+        public static final int saving=0x7f080010;
         public static final int savingitem=0x7f08000b;
-        public static final int seekBar1=0x7f080011;
+        public static final int seekBar1=0x7f080013;
         public static final int seekBar2=0x7f080015;
         public static final int select=0x7f08000a;
-        public static final int text=0x7f08001c;
-        public static final int textView1=0x7f080012;
-        public static final int textViewProgress=0x7f080014;
-        public static final int time=0x7f080013;
-        public static final int toast_layout_root=0x7f08001b;
+        public static final int text=0x7f08001b;
+        public static final int time=0x7f080014;
+        public static final int toast_layout_root=0x7f08001a;
         public static final int totalprice=0x7f080016;
-        public static final int tv_android=0x7f080018;
+        public static final int tv_android=0x7f080017;
         public static final int txt_your_name=0x7f080007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int databasemain=0x7f030001;
-        public static final int fragment_dialog=0x7f030002;
-        public static final int fragment_moneylog=0x7f030003;
-        public static final int fragment_overview=0x7f030004;
-        public static final int fragment_parkinglog=0x7f030005;
-        public static final int fragment_radiodialog=0x7f030006;
-        public static final int rowlayout=0x7f030007;
-        public static final int toast_layout=0x7f030008;
+        public static final int activity_splash=0x7f030001;
+        public static final int databasemain=0x7f030002;
+        public static final int fragment_dialog=0x7f030003;
+        public static final int fragment_moneylog=0x7f030004;
+        public static final int fragment_overview=0x7f030005;
+        public static final int fragment_parkinglog=0x7f030006;
+        public static final int fragment_radiodialog=0x7f030007;
+        public static final int rowlayout=0x7f030008;
+        public static final int toast_layout=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
+        public static final int activity_splash=0x7f070001;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
-        public static final int menu_settings=0x7f050002;
+        public static final int cancel_parking=0x7f050009;
+        public static final int menu_settings=0x7f050001;
+        public static final int money_saved=0x7f050002;
+        public static final int new_savings=0x7f050007;
+        public static final int nok_saved=0x7f050003;
+        public static final int rate=0x7f050004;
+        public static final int register_parking=0x7f050008;
+        public static final int time=0x7f050005;
+        public static final int total_price=0x7f050006;
     }
     public static final class style {
         /** 

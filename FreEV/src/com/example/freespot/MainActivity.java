@@ -140,17 +140,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			case 0:  	
 				OverView ov = new OverView();
 				getSupportFragmentManager().beginTransaction().replace(R.id.container, ov).commit();
-				Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
 			break;
 			case 1:  	
 				ParkingLog ex = new ParkingLog();
 				getSupportFragmentManager().beginTransaction().replace(R.id.container, ex).commit();
-				Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
 			break;
 			case 2:  	
 				MoneyLog re = new MoneyLog();
 				getSupportFragmentManager().beginTransaction().replace(R.id.container, re).commit();
-				Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_SHORT).show();
 			break;
 		}
 			

@@ -2,7 +2,14 @@
 <resources>
 
     <string name="app_name">FreEV</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="money_saved">TOTAL MONEY SAVED</string>
+    <string name="nok_saved">0 NOK</string>
+    <string name="rate">Rate</string>
+    <string name="time">Time</string>
+    <string name="total_price">Rate x Time</string>
+    <string name="new_savings">NEW PARKING...</string>
+    <string name="register_parking">REGISTER PARKING!</string>
+    <string name="cancel_parking">CANCEL PARKING!</string>
 
 </resources>
