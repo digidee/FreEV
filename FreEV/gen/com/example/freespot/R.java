@@ -108,12 +108,16 @@ public final class R {
     public static final class string {
         public static final int app_name=0x7f050000;
         public static final int cancel_parking=0x7f050009;
+        public static final int lol=0x7f05000d;
         public static final int menu_settings=0x7f050001;
         public static final int money_saved=0x7f050002;
         public static final int new_savings=0x7f050007;
+        public static final int new_savings2=0x7f05000c;
         public static final int nok_saved=0x7f050003;
         public static final int rate=0x7f050004;
         public static final int register_parking=0x7f050008;
+        public static final int save_new=0x7f05000b;
+        public static final int saving_progress=0x7f05000a;
         public static final int time=0x7f050005;
         public static final int total_price=0x7f050006;
     }
