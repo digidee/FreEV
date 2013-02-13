@@ -95,29 +95,7 @@ public class MoneyLog extends ListFragment {
 	       }); 
 	       
 
-	        //finding progressbar
-			 pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
-			 
-			 //setting progressbar options
-			 pb.setVisibility(View.VISIBLE);
-	         pb.setMax(4000);
-	         pb.setProgress(totalCosts);
-	         pb.setIndeterminate(false);
-	         
-	         //finding button
-	         Button bselect2 = (Button) v.findViewById(R.id.select);
-	         
-	         //setting onclicklistened
-	         bselect2.setOnClickListener(new OnClickListener() {
-	             public void onClick(View v) {
-	         
-	            	 //call shoeEcitDialog
-	            	 //showEditDialog();
-	            	 
-	            	 //car dialog radio from main activity
-	            	 ((MainActivity) getActivity()).startDialogRadio();
-	             }
-	         }); 
+
 
 		
 		return v;

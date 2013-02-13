@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -71,6 +72,8 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 	LinearLayout regInterface;
 
 	Chronometer mChronometer;
+	
+	private ProgressBar pb;
 
 	/*
 	 * 1 - Constructor (General programming: Java/C) Purpose and function:
@@ -114,6 +117,9 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		}
 
 		Log.d(LOG_TAG, "totalCosts: " + totalCosts);
+		
+      
+		
 	}
 
 	@Override
@@ -197,6 +203,31 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		String totalf = totalCosts + " NOK";
 		moneySaved = (TextView) v.findViewById(R.id.nok);
 		moneySaved.setText(totalf);
+		
+		
+		  //finding progressbar
+		 pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
+		 
+		 //setting progressbar options
+		 pb.setVisibility(View.VISIBLE);
+        pb.setMax(4000);
+        pb.setProgress(totalCosts);
+        pb.setIndeterminate(false);
+        
+        //finding button
+        Button bselect2 = (Button) v.findViewById(R.id.select);
+        
+        //setting onclicklistened
+        bselect2.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+        
+           	 //call shoeEcitDialog
+           	 //showEditDialog();
+           	 
+           	 //car dialog radio from main activity
+           	 ((MainActivity) getActivity()).startDialogRadio();
+            }
+        }); 
 
 		return v;
 	}
