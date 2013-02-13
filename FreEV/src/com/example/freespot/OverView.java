@@ -74,7 +74,11 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 	Chronometer mChronometer;
 	
 	private ProgressBar pb;
+	
+	private String product;
 
+	private String proddb;
+	
 	/*
 	 * 1 - Constructor (General programming: Java/C) Purpose and function:
 	 * Constructors have one purpose in life: to create an instance of a class.
@@ -114,7 +118,9 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 		for (Logging logs : values) {
 			totalCosts += logs.getTotalCosts();
+			proddb = logs.getProduct();
 		}
+		
 
 		Log.d(LOG_TAG, "totalCosts: " + totalCosts);
 		
@@ -204,6 +210,16 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		moneySaved = (TextView) v.findViewById(R.id.nok);
 		moneySaved.setText(totalf);
 		
+ 
+        if(!proddb.equals("")){
+	
+	 	    /** Getting the reference of the textview from the main layout */
+	        TextView tv = (TextView) v.findViewById(R.id.savingitem);
+	        /** Setting the selected android version in the textview */
+	        tv.setText("You are saving for: "+proddb);
+	        
+			Log.d(LOG_TAG, "ProdDB: "+ proddb);
+        }
 		
 		  //finding progressbar
 		 pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
@@ -298,7 +314,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 						// Add time to database
 						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 						Logging log = null;
-						log = datasource.createLog(parkTime, totalbar);
+						log = datasource.createLog(parkTime, totalbar, ((MainActivity) getActivity()).getProductName());
 						adapter.add(log);
 
 						String toastTime = "Parking registered!" + "\n"
@@ -308,7 +324,8 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 						Log.d(LOG_TAG, "totalcosts: " + totalCosts
 								+ " - totalcosts+totalbar " + newcost
-								+ " - totalbar; " + totalbar);
+								+ " - totalbar; " + totalbar
+								+ "productname: "+ ((MainActivity) getActivity()).getProductName());
 
 						startSaving.setText(R.string.new_savings);
 					}
@@ -320,11 +337,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 					startSaving.setBackgroundColor(getResources().getColor(
 							R.color.red1));
 				}
-				// ((MainActivity) getActivity()).stopChronometer(v);
 
-				// }
-
-				// startSaving.setText(saveText);
 			}
 		});
 

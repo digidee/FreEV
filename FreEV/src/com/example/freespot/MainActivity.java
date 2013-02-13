@@ -1,6 +1,8 @@
 package com.example.freespot;
 
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentManager;
@@ -13,6 +15,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Chronometer.OnChronometerTickListener;
@@ -21,6 +24,8 @@ import android.widget.Toast;
 
 import com.example.freespot.AlertDialogRadio.AlertPositiveListener;
 import com.example.freespot.EditNameDialog.EditNameDialogListener;
+import com.example.freespot.database.Logging;
+import com.example.freespot.database.LoggingDataSource;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, EditNameDialogListener, AlertPositiveListener{
 	
@@ -33,6 +38,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	Button selectB;
 	TextView tv;
 	TextView tv2;
+
+	private String productname = "";
 
 	
 	//Dialogradio - store position
@@ -57,12 +64,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		actionBar.addTab(actionBar.newTab().setText("Parking Log").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("Savings Log").setTabListener(this));
 		
-
-		
-
-		//setProduct( savedInstanceState.getString("saveNames"));
 	}
 	
+	public String getProductName(){
+		
+		return productname;
+	}
 	
 
 	
@@ -201,6 +208,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
  
         /** Setting the selected android version in the textview */
         tv.setText("You are saving for: " + ProductSelection.code[this.position]);
+        
+        productname=ProductSelection.code[this.position];
     }
 	
 	

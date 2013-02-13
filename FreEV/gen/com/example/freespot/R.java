@@ -31,17 +31,27 @@ public final class R {
         public static final int yellow2=0x7f040001;
     }
     public static final class drawable {
-        public static final int custom_button=0x7f020000;
-        public static final int custom_button_end=0x7f020001;
-        public static final int custom_progress_bar=0x7f020002;
-        public static final int custom_row=0x7f020003;
-        public static final int custom_toast=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int no=0x7f020007;
-        public static final int ok=0x7f020008;
-        public static final int splash=0x7f020009;
-        public static final int text_color=0x7f02000a;
+        public static final int arrowdown=0x7f020000;
+        public static final int arrowup=0x7f020001;
+        public static final int custom_button=0x7f020002;
+        public static final int custom_button_end=0x7f020003;
+        public static final int custom_progress_bar=0x7f020004;
+        public static final int custom_row=0x7f020005;
+        public static final int custom_toast=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int icon=0x7f020008;
+        public static final int iconblue=0x7f020009;
+        public static final int icongreen=0x7f02000a;
+        public static final int iconorange=0x7f02000b;
+        public static final int iconpurple=0x7f02000c;
+        public static final int no=0x7f02000d;
+        public static final int ok=0x7f02000e;
+        public static final int splash=0x7f02000f;
+        public static final int splashblue=0x7f020010;
+        public static final int splashgreen=0x7f020011;
+        public static final int splashorange=0x7f020012;
+        public static final int splashpurple=0x7f020013;
+        public static final int text_color=0x7f020014;
     }
     public static final class id {
         public static final int add=0x7f080003;

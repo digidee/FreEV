@@ -11,8 +11,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   public static final String COLUMN_ID = "_id";
   public static final String COLUMN_NAME = "name";
   public static final String COLUMN_TOTALCOSTS = "totalCosts";
+  public static final String COLUMN_PRODUCT = "product";
 
-  private static final String DATABASE_NAME = "logging.db";
+  private static final String DATABASE_NAME = "logging2.db";
   private static final int DATABASE_VERSION = 1;
 
   // Database creation sql statement
@@ -20,7 +21,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
       + TABLE_LOGGING + "(" + COLUMN_ID
       + " integer primary key autoincrement, " 
       + COLUMN_NAME + " text not null, "
-      + COLUMN_TOTALCOSTS + " text);";
+      + COLUMN_TOTALCOSTS + " text not null, "
+      + COLUMN_PRODUCT +" text not null);";
 
   public MySQLiteHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
