@@ -378,7 +378,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 						String date = dateFormat.format(cal.getTime());
 
-						String fixedInfo = " Money saved: " + totalbar + " NOK";
+						String fixedInfo = "Money saved: " + totalbar + " NOK";
 
 						String parkTime = "Parking date: " + date + "\n"
 								+ fixedInfo;
