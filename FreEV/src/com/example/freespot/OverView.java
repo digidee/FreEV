@@ -59,26 +59,27 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 	private SeekBar bar; // declare seekbar object variable
 	private SeekBar bar2;
+	private SeekBar barToll;
 
 	private int totalCosts = 0, newcost = 0, totalCosts2 = 0;
 
-	private int timebar = 0, costbar = 0, totalbar = 0;
+	private int timebar = 0, costbar = 0, totalbar = 0, tollBar = 0;
 
 	// declare text label objects
-	private TextView textPrice, textTime, textTotal, moneySaved;
+	private TextView textPrice, textTime, textTotal, moneySaved, tollPrice;
 
 	private LoggingDataSource datasource;
 
-	LinearLayout regInterface;
+	LinearLayout regInterface, tollInterface, proInterface;
 
 	Chronometer mChronometer;
-	
+
 	private ProgressBar pb;
-	
+
 	private String product;
 
 	private String proddb;
-	
+
 	/*
 	 * 1 - Constructor (General programming: Java/C) Purpose and function:
 	 * Constructors have one purpose in life: to create an instance of a class.
@@ -120,12 +121,9 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 			totalCosts += logs.getTotalCosts();
 			proddb = logs.getProduct();
 		}
-		
 
 		Log.d(LOG_TAG, "totalCosts: " + totalCosts);
-		
-      
-		
+
 	}
 
 	@Override
@@ -159,6 +157,17 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 				moneySaved.setText(totalCosts2 + " NOK");
 			}
 			break;
+
+		case R.id.seekBar3:
+			// change progress text label with current seekbar value
+			tollPrice.setText("Price = " + barToll.getProgress() + " NOK");
+			if (barToll.getProgress() != 0) {
+				moneySaved.setText(totalCosts2 + " + " + barToll.getProgress()
+						+ " NOK");
+			} else {
+				moneySaved.setText(totalCosts2 + " NOK");
+			}
+			break;
 		}
 
 	}
@@ -178,6 +187,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		timebar = bar2.getProgress();
 		costbar = bar.getProgress();
 		totalbar = timebar * costbar;
+		tollBar = barToll.getProgress();
 	}
 
 	// 3 - onCreateView(LayoutInflater, ViewGroup, Bundle) creates and returns
@@ -196,6 +206,10 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		bar2 = (SeekBar) v.findViewById(R.id.seekBar2); // make seekbar object
 		bar2.setOnSeekBarChangeListener(this); // set seekbar listener.
 
+		barToll = (SeekBar) v.findViewById(R.id.seekBar3); // make seekbar
+															// object
+		barToll.setOnSeekBarChangeListener(this); // set seekbar listener.
+
 		// since we are using this class as the listener the class is "this"
 
 		// make text label for progress value
@@ -206,44 +220,45 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		textTotal = (TextView) v.findViewById(R.id.totalprice);
 		// SLIDER END
 
+		tollPrice = (TextView) v.findViewById(R.id.price2);
+
 		String totalf = totalCosts + " NOK";
 		moneySaved = (TextView) v.findViewById(R.id.nok);
 		moneySaved.setText(totalf);
-		
- 
-        if(!proddb.equals("")){
-	
-	 	    /** Getting the reference of the textview from the main layout */
-	        TextView tv = (TextView) v.findViewById(R.id.savingitem);
-	        /** Setting the selected android version in the textview */
-	        tv.setText("You are saving for: "+proddb);
-	        
-			Log.d(LOG_TAG, "ProdDB: "+ proddb);
-        }
-		
-		  //finding progressbar
-		 pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
-		 
-		 //setting progressbar options
-		 pb.setVisibility(View.VISIBLE);
-        pb.setMax(4000);
-        pb.setProgress(totalCosts);
-        pb.setIndeterminate(false);
-        
-        //finding button
-        Button bselect2 = (Button) v.findViewById(R.id.select);
-        
-        //setting onclicklistened
-        bselect2.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-        
-           	 //call shoeEcitDialog
-           	 //showEditDialog();
-           	 
-           	 //car dialog radio from main activity
-           	 ((MainActivity) getActivity()).startDialogRadio();
-            }
-        }); 
+
+		// if (!proddb.equals("")) {
+
+		/** Getting the reference of the textview from the main layout */
+		// TextView tv = (TextView) v.findViewById(R.id.savingitem);
+		/** Setting the selected android version in the textview */
+		// tv.setText("You are saving for: " + proddb);
+
+		// Log.d(LOG_TAG, "ProdDB: " + proddb);
+		// }
+
+		// finding progressbar
+		pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
+
+		// setting progressbar options
+		pb.setVisibility(View.VISIBLE);
+		pb.setMax(4000);
+		pb.setProgress(totalCosts);
+		pb.setIndeterminate(false);
+
+		// finding button
+		Button bselect2 = (Button) v.findViewById(R.id.select);
+
+		// setting onclicklistened
+		bselect2.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+				// call shoeEcitDialog
+				// showEditDialog();
+
+				// car dialog radio from main activity
+				((MainActivity) getActivity()).startDialogRadio();
+			}
+		});
 
 		return v;
 	}
@@ -256,18 +271,80 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 	@Override
 	public void onViewCreated(View v, Bundle savedInstanceState) {
 		Log.d(LOG_TAG, "Called: onViewCreated");
+		
+		proInterface = (LinearLayout) v.findViewById(R.id.llSaveItem);
+		final Button proButton = (Button) v.findViewById(R.id.progressB);
+		proButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
 
-		/*
-		 * //finding button Button reg = (Button) v.findViewById(R.id.register);
-		 * 
-		 * //setting onclicklistened reg.setOnClickListener(new
-		 * OnClickListener() { public void onClick(View v) {
-		 * 
-		 * //call shoeEcitDialog //showEditDialog();
-		 * 
-		 * //car dialog radio from main activity ((MainActivity)
-		 * getActivity()).startBase(); } });
-		 */
+				if (proInterface.isShown()) {
+				
+					proInterface.setVisibility(2);
+				}
+				else{
+					proInterface.setVisibility(0);
+				}
+			}
+		});
+						
+		
+		
+
+		tollInterface = (LinearLayout) v.findViewById(R.id.llRegToll);
+		final Button tollSaving = (Button) v.findViewById(R.id.saving2);
+		tollSaving.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+				if (tollInterface.isShown()) {
+					if (tollBar != 0) {
+
+						// formatting date
+						DateFormat dateFormat = new SimpleDateFormat(
+								"yyyy/MM/dd HH:mm:ss");
+						// get current date time with Calendar()
+						Calendar cal = Calendar.getInstance();
+
+						String date = dateFormat.format(cal.getTime());
+
+						String fixedInfo = "Money saved: " + tollBar + " NOK";
+
+						String parkTime = "Toll pass date: " + date + "\n"
+								+ fixedInfo;
+
+						// Add time to database
+						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
+						Logging log = null;
+						log = datasource
+								.createLog(parkTime, tollBar,
+										((MainActivity) getActivity())
+												.getProductName());
+						adapter.add(log);
+
+						String toastTime = "Toll pass registered!" + "\n"
+								+ parkTime;
+						Toast.makeText(OverView.this.getActivity(), toastTime,
+								Toast.LENGTH_LONG).show();
+
+						Log.d(LOG_TAG,
+								"Tollcosts: "
+										+ tollBar
+										+ "productname: "
+										+ ((MainActivity) getActivity())
+												.getProductName());
+
+						tollSaving.setText(R.string.new_savings2);
+					}
+					((MainActivity) getActivity()).refreshOVerView();
+				} else {
+					totalCosts2 = totalCosts;
+					tollInterface.setVisibility(0);
+					tollSaving.setText(R.string.new_savings3);
+					tollSaving.setBackgroundColor(getResources().getColor(
+							R.color.red1));
+				}
+
+			}
+		});
 
 		regInterface = (LinearLayout) v.findViewById(R.id.llRegInt);
 		final Button startSaving = (Button) v.findViewById(R.id.saving);
@@ -292,21 +369,16 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 				if (regInterface.isShown()) {
 					if (totalbar != 0) {
-						
+
 						// formatting date
 						DateFormat dateFormat = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm:ss");
 						// get current date time with Calendar()
 						Calendar cal = Calendar.getInstance();
 
-
 						String date = dateFormat.format(cal.getTime());
 
-		
-
-						String fixedInfo = "Parking price: " + costbar
-								+ " Parking time: " + timebar
-								+ " Total costs: " + totalbar;
+						String fixedInfo = " Money saved: " + totalbar + " NOK";
 
 						String parkTime = "Parking date: " + date + "\n"
 								+ fixedInfo;
@@ -314,7 +386,10 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 						// Add time to database
 						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 						Logging log = null;
-						log = datasource.createLog(parkTime, totalbar, ((MainActivity) getActivity()).getProductName());
+						log = datasource
+								.createLog(parkTime, totalbar,
+										((MainActivity) getActivity())
+												.getProductName());
 						adapter.add(log);
 
 						String toastTime = "Parking registered!" + "\n"
@@ -322,10 +397,16 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 						Toast.makeText(OverView.this.getActivity(), toastTime,
 								Toast.LENGTH_LONG).show();
 
-						Log.d(LOG_TAG, "totalcosts: " + totalCosts
-								+ " - totalcosts+totalbar " + newcost
-								+ " - totalbar; " + totalbar
-								+ "productname: "+ ((MainActivity) getActivity()).getProductName());
+						Log.d(LOG_TAG,
+								"totalcosts: "
+										+ totalCosts
+										+ " - totalcosts+totalbar "
+										+ newcost
+										+ " - totalbar; "
+										+ totalbar
+										+ "productname: "
+										+ ((MainActivity) getActivity())
+												.getProductName());
 
 						startSaving.setText(R.string.new_savings);
 					}

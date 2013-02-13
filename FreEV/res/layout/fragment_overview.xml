@@ -50,7 +50,7 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/headertext2"
+                android:id="@+id/progressB"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -76,7 +76,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible" >
+            android:visibility="gone" >
 
             <ProgressBar
                 android:id="@+id/pgbAwardProgress"
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/rate"
+                android:text="@string/rate2"
                 android:textSize="20sp" >
             </TextView>
 

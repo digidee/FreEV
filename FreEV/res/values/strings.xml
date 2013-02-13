@@ -6,6 +6,7 @@
     <string name="money_saved">TOTAL MONEY SAVED</string>
     <string name="nok_saved">0 NOK</string>
     <string name="rate">Rate</string>
+    <string name="rate2">Price</string>
     <string name="time">Time</string>
     <string name="total_price">Rate x Time</string>
     <string name="new_savings">NEW PARKING</string>
@@ -13,7 +14,8 @@
     <string name="cancel_parking">CANCEL PARKING!</string>
     <string name="saving_progress">SAVING PROGRESS</string>
     <string name="save_new">SAVE FOR SOMETHING NEW</string>
-    <string name="new_savings2">REGISTER NEW TOLL PASS</string>
+    <string name="new_savings2">NEW TOLL PASS</string>
+    <string name="new_savings3">REGISTER TOLL PASS</string>
     <string name="lol">lol</string>
 
 </resources>

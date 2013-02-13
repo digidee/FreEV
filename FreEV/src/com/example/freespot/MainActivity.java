@@ -8,6 +8,7 @@ import android.app.ActionBar.Tab;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Chronometer.OnChronometerTickListener;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,9 +63,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		
 		//Adding new tabs
 		actionBar.addTab(actionBar.newTab().setText("Overview").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText("Parking Log").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("Savings Log").setTabListener(this));
 		
+	}
+	
+	public static void setTabColor(TabHost tabhost) {
+	    for(int i=0;i<tabhost.getTabWidget().getChildCount();i++)
+	    {
+	        tabhost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#FFFFFF")); //unselected
+	    }
+	    tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(Color.parseColor("#FFFFFF")); // selected
 	}
 	
 	public String getProductName(){

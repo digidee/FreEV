@@ -15,8 +15,6 @@
         android:paddingBottom="10px"			    
         >
     </TextView>
-         
-         
 
 
 </RelativeLayout> 
