@@ -45,8 +45,7 @@ public final class R {
     }
     public static final class id {
         public static final int add=0x7f080003;
-        public static final int btn_choose=0x7f080018;
-        public static final int chronometer=0x7f08000f;
+        public static final int btn_choose=0x7f080017;
         public static final int container=0x7f080000;
         public static final int delete=0x7f080004;
         public static final int deletegroup=0x7f080009;
@@ -54,24 +53,24 @@ public final class R {
         public static final int group=0x7f080002;
         public static final int headerlog=0x7f080008;
         public static final int headertext=0x7f08000a;
-        public static final int label=0x7f080019;
+        public static final int label=0x7f080018;
         public static final int lbl_your_name=0x7f080006;
-        public static final int llRegInt=0x7f080011;
-        public static final int menu_settings=0x7f08001c;
+        public static final int llRegInt=0x7f080010;
+        public static final int menu_settings=0x7f08001b;
         public static final int newtime=0x7f080001;
         public static final int nok=0x7f08000b;
         public static final int pgbAwardProgress=0x7f08000c;
-        public static final int price=0x7f080012;
-        public static final int saving=0x7f080010;
+        public static final int price=0x7f080011;
+        public static final int saving=0x7f08000f;
         public static final int savingitem=0x7f08000e;
-        public static final int seekBar1=0x7f080013;
-        public static final int seekBar2=0x7f080015;
+        public static final int seekBar1=0x7f080012;
+        public static final int seekBar2=0x7f080014;
         public static final int select=0x7f08000d;
-        public static final int text=0x7f08001b;
-        public static final int time=0x7f080014;
-        public static final int toast_layout_root=0x7f08001a;
-        public static final int totalprice=0x7f080016;
-        public static final int tv_android=0x7f080017;
+        public static final int text=0x7f08001a;
+        public static final int time=0x7f080013;
+        public static final int toast_layout_root=0x7f080019;
+        public static final int totalprice=0x7f080015;
+        public static final int tv_android=0x7f080016;
         public static final int txt_your_name=0x7f080007;
     }
     public static final class layout {

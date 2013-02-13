@@ -188,36 +188,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			selectB.setVisibility(View.GONE);
 		}
 	}
-	
-	 public void startChronometer(View view) {
-		 mChronometer = (Chronometer) findViewById(R.id.chronometer);
-		 
-		 
-		 
-		 mChronometer.setOnChronometerTickListener(new OnChronometerTickListener() {
-			    public void onChronometerTick(Chronometer cArg) {
-			        long t = SystemClock.elapsedRealtime() - cArg.getBase();
-			        cArg.setText(DateFormat.format("mm:ss", t));
-			    }
-			});
-		 
-		 mChronometer.setVisibility(View.VISIBLE); 
-		 mChronometer.setBase(SystemClock.elapsedRealtime());
-		 mChronometer.start();
-	 }
 
-    public void stopChronometer(View view) {
-		 mChronometer = (Chronometer) findViewById(R.id.chronometer);
-		 mChronometer.setVisibility(View.GONE); 
-		 mChronometer.setBase(SystemClock.elapsedRealtime());
-		 mChronometer.stop(); 
-    }
-	
-    public long getTime(){
-    	mChronometer = (Chronometer) findViewById(R.id.chronometer);
-    	long time = SystemClock.elapsedRealtime() - mChronometer.getBase();
-    	return time;
-    }
     
     
     /** Defining button click listener for the OK button of the alert dialog window */

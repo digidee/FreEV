@@ -276,25 +276,17 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 				if (regInterface.isShown()) {
 					if (totalbar != 0) {
-						long millichronTime = ((MainActivity) getActivity())
-								.getTime();
-						int seconds = (int) millichronTime / 1000;
-
+						
 						// formatting date
 						DateFormat dateFormat = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm:ss");
 						// get current date time with Calendar()
 						Calendar cal = Calendar.getInstance();
 
-						String formatTime = String.format("%02d:%02d:%02d",
-								seconds / 3600, (seconds % 3600) / 60,
-								(seconds % 60));
 
-						String time = "Parking time: " + formatTime;
 						String date = dateFormat.format(cal.getTime());
 
-						Log.d(LOG_TAG, "Called: Chronometer time: "
-								+ formatTime);
+		
 
 						String fixedInfo = "Parking price: " + costbar
 								+ " Parking time: " + timebar
