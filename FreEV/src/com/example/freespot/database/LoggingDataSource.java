@@ -15,7 +15,7 @@ public class LoggingDataSource {
   private SQLiteDatabase database;
   private MySQLiteHelper dbHelper;
   private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-      MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_TOTALCOSTS, MySQLiteHelper.COLUMN_PRODUCT };
+      MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_TOTALCOSTS};
 
   public LoggingDataSource(Context context) {
     dbHelper = new MySQLiteHelper(context);
@@ -29,11 +29,10 @@ public class LoggingDataSource {
     dbHelper.close();
   }
 
-  public Logging createLog(String log, int totalCosts, String product) {
+  public Logging createLog(String log, int totalCosts) {
     ContentValues values = new ContentValues();
     values.put(MySQLiteHelper.COLUMN_NAME, log);
     values.put(MySQLiteHelper.COLUMN_TOTALCOSTS, totalCosts);
-    values.put(MySQLiteHelper.COLUMN_PRODUCT, product);
     long insertId = database.insert(MySQLiteHelper.TABLE_LOGGING, null,
         values);
     Cursor cursor = database.query(MySQLiteHelper.TABLE_LOGGING,
@@ -76,7 +75,6 @@ public class LoggingDataSource {
     log.setId(cursor.getLong(0));
     log.setName(cursor.getString(1));
     log.setTotalCosts(cursor.getInt(2));
-    log.setProduct(cursor.getString(3));
     return log;
   }
 } 

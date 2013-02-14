@@ -4,7 +4,6 @@ public class Logging {
 	  private long id;
 	  private String name;
 	  private int totalCosts;
-	  private String product;
 
 	  public long getId() {
 	    return id;
@@ -29,16 +28,6 @@ public class Logging {
 	  public void setTotalCosts(int totalCosts) {
 	    this.totalCosts = totalCosts;
 	  }
-
-	  public String getProduct() {
-		    return product;
-		  }
-
-		  public void setProduct(String product) {
-		    this.product = product;
-		  }
-	  
-	  
 
 	  // Will be used by the ArrayAdapter in the ListView
 	  @Override

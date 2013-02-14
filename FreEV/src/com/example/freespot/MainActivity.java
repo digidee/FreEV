@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Chronometer.OnChronometerTickListener;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.example.freespot.AlertDialogRadio.AlertPositiveListener;
 import com.example.freespot.EditNameDialog.EditNameDialogListener;
 import com.example.freespot.database.Logging;
 import com.example.freespot.database.LoggingDataSource;
+import com.example.freespot.database.ProductDataSource;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, EditNameDialogListener, AlertPositiveListener{
 	
@@ -42,10 +45,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	TextView tv2;
 
 	private String productname = "";
+	
+	private ProductDataSource prosource;
+	
+	private ProgressBar pb;
 
 	
 	//Dialogradio - store position
 	int position = 0;
+	
+	int productPrice;
+	
+	ImageView toll_arrow;
 		
 	//Intent intent = new Intent(this, Excersice.class);
 
@@ -64,6 +75,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		//Adding new tabs
 		actionBar.addTab(actionBar.newTab().setText("Overview").setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText("Savings Log").setTabListener(this));
+		
+		prosource = new ProductDataSource(this);
+		prosource.open();
+
 		
 	}
 	
@@ -200,11 +215,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			tv.setText(n);
 			//tv2 = (TextView) findViewById(R.id.savingfor);
 			//tv2.setVisibility(View.VISIBLE);
-			selectB = (Button) findViewById(R.id.select);
+			selectB = (Button) findViewById(R.id.selectb);
 			selectB.setVisibility(View.GONE);
 		}
 	}
-
+	
+	public void changeArrow(int r_id){
+		toll_arrow = (ImageView) findViewById(r_id);
+		toll_arrow.setImageResource(R.drawable.arrowup);
+	}
+	public void changeArrowD(int r_id){
+		toll_arrow = (ImageView) findViewById(r_id);
+		toll_arrow.setImageResource(R.drawable.arrowdown);
+	}
     
     
     /** Defining button click listener for the OK button of the alert dialog window */
@@ -219,6 +242,36 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tv.setText("You are saving for: " + ProductSelection.code[this.position]);
         
         productname=ProductSelection.code[this.position];
+        
+        switch(position){
+        case 0:
+        	productPrice = 9000;
+        	break;
+        case 1:
+        	productPrice = 4000;
+        	break;
+        case 2:
+        	productPrice = 5000;
+        	break;
+        case 3:
+        	productPrice = 3000;
+        	break;
+        case 4:
+        	productPrice = 3500;
+        	break;
+        case 5:
+        	productPrice = 15000;
+        	break;
+        }
+
+		Log.d(LOG_TAG, "ProductPrice position: "+position);
+		
+		prosource.createProduct(productname, productPrice);
+		
+		// finding progressbar
+		pb = (ProgressBar) findViewById(R.id.pgbAwardProgress);
+		pb.setMax(productPrice);
+        
     }
 	
 	

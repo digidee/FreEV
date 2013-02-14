@@ -19,7 +19,7 @@
 	        android:id="@+id/headerlog"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Parking Log"
+	        android:text="SAVINGS LOG"
 	        android:textSize="40px"
 	        android:paddingLeft="10px"
 	        android:textStyle="bold"
@@ -62,11 +62,13 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:textSize="30px"
 	        android:textStyle="bold"
 	        android:layout_marginTop="10px"
-            android:text="Delete parking log" 
-            android:background="@drawable/custom_button"
+            android:text="DELETE SAVINGS LOG" 
+            android:background="@color/menublue"
+            android:textColor="@color/white1"
+            android:textSize="15sp"
+ 
 		/>
       
       

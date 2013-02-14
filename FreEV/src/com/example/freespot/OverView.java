@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 
 import com.example.freespot.database.Logging;
 import com.example.freespot.database.LoggingDataSource;
+import com.example.freespot.database.Product;
+import com.example.freespot.database.ProductDataSource;
 
 /*
  * 	Lifecycle of fragments
@@ -69,6 +72,15 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 	private TextView textPrice, textTime, textTotal, moneySaved, tollPrice;
 
 	private LoggingDataSource datasource;
+	private ProductDataSource prosource;
+	
+	private ImageView toll_arrow;
+
+	Button tollSaving;
+
+	Button proButton;
+	
+	Button startSaving;
 
 	LinearLayout regInterface, tollInterface, proInterface;
 
@@ -77,6 +89,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 	private ProgressBar pb;
 
 	private String product;
+	private int productPrice = 100;
 
 	private String proddb;
 
@@ -119,8 +132,21 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 		for (Logging logs : values) {
 			totalCosts += logs.getTotalCosts();
-			proddb = logs.getProduct();
 		}
+		
+		prosource = new ProductDataSource(getActivity());
+		prosource.open();
+
+		List<Product> proValues = prosource.getAllPros();
+		
+		for (Product pro : proValues){
+			product = pro.getName();
+			productPrice = pro.getPrice();
+		}
+
+		
+
+		Log.d(LOG_TAG, "Productname: " + product + " - Productprice: " + productPrice);
 
 		Log.d(LOG_TAG, "totalCosts: " + totalCosts);
 
@@ -226,39 +252,12 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		moneySaved = (TextView) v.findViewById(R.id.nok);
 		moneySaved.setText(totalf);
 
-		// if (!proddb.equals("")) {
 
-		/** Getting the reference of the textview from the main layout */
-		// TextView tv = (TextView) v.findViewById(R.id.savingitem);
-		/** Setting the selected android version in the textview */
-		// tv.setText("You are saving for: " + proddb);
+   
+		
 
-		// Log.d(LOG_TAG, "ProdDB: " + proddb);
-		// }
 
-		// finding progressbar
-		pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
 
-		// setting progressbar options
-		pb.setVisibility(View.VISIBLE);
-		pb.setMax(4000);
-		pb.setProgress(totalCosts);
-		pb.setIndeterminate(false);
-
-		// finding button
-		Button bselect2 = (Button) v.findViewById(R.id.select);
-
-		// setting onclicklistened
-		bselect2.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-
-				// call shoeEcitDialog
-				// showEditDialog();
-
-				// car dialog radio from main activity
-				((MainActivity) getActivity()).startDialogRadio();
-			}
-		});
 
 		return v;
 	}
@@ -273,16 +272,29 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		Log.d(LOG_TAG, "Called: onViewCreated");
 		
 		proInterface = (LinearLayout) v.findViewById(R.id.llSaveItem);
-		final Button proButton = (Button) v.findViewById(R.id.progressB);
+		proButton = (Button) v.findViewById(R.id.progressB);
 		proButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
 				if (proInterface.isShown()) {
 				
-					proInterface.setVisibility(2);
+					((MainActivity) getActivity()).refreshOVerView();
 				}
 				else{
-					proInterface.setVisibility(0);
+					//reset tollinterface
+					tollInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_tolls);
+					tollSaving.setBackgroundColor(getResources().getColor(R.color.menublue));				
+
+					
+					//reset reginterface
+					regInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_saving);
+					startSaving.setBackgroundColor(getResources().getColor(R.color.menublue));
+					
+					
+					proInterface.setVisibility(View.VISIBLE);
+					((MainActivity) getActivity()).changeArrow(R.id.arrow_progress);
 				}
 			}
 		});
@@ -291,7 +303,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		
 
 		tollInterface = (LinearLayout) v.findViewById(R.id.llRegToll);
-		final Button tollSaving = (Button) v.findViewById(R.id.saving2);
+		tollSaving = (Button) v.findViewById(R.id.saving2);
 		tollSaving.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
@@ -315,16 +327,17 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 						Logging log = null;
 						log = datasource
-								.createLog(parkTime, tollBar,
-										((MainActivity) getActivity())
-												.getProductName());
+								.createLog(parkTime, tollBar);
 						adapter.add(log);
 
 						String toastTime = "Toll pass registered!" + "\n"
 								+ parkTime;
-						Toast.makeText(OverView.this.getActivity(), toastTime,
-								Toast.LENGTH_LONG).show();
-
+						
+						
+						Toast toast = Toast.makeText(OverView.this.getActivity(), toastTime, Toast.LENGTH_LONG); 
+						toast.setGravity(Gravity.BOTTOM, 0, 10); 
+						toast.show();
+						
 						Log.d(LOG_TAG,
 								"Tollcosts: "
 										+ tollBar
@@ -341,13 +354,29 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 					tollSaving.setText(R.string.new_savings3);
 					tollSaving.setBackgroundColor(getResources().getColor(
 							R.color.red1));
+					
+					
+
+					//reset reginterface
+					proInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_progress);
+					proButton.setBackgroundColor(getResources().getColor(R.color.menublue));				
+
+					
+					//reset reginterface
+					regInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_saving);
+					startSaving.setBackgroundColor(getResources().getColor(R.color.menublue));
+					
+					
+					((MainActivity) getActivity()).changeArrow(R.id.arrow_tolls);
 				}
 
 			}
 		});
 
 		regInterface = (LinearLayout) v.findViewById(R.id.llRegInt);
-		final Button startSaving = (Button) v.findViewById(R.id.saving);
+		startSaving = (Button) v.findViewById(R.id.saving);
 		startSaving.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
@@ -384,18 +413,15 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 								+ fixedInfo;
 
 						// Add time to database
-						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
-						Logging log = null;
-						log = datasource
-								.createLog(parkTime, totalbar,
-										((MainActivity) getActivity())
-												.getProductName());
-						adapter.add(log);
+						//ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
+						datasource.createLog(parkTime, totalbar);
+						//adapter.add(log);
 
 						String toastTime = "Parking registered!" + "\n"
 								+ parkTime;
-						Toast.makeText(OverView.this.getActivity(), toastTime,
-								Toast.LENGTH_LONG).show();
+						Toast toast = Toast.makeText(OverView.this.getActivity(), toastTime, Toast.LENGTH_LONG); 
+						toast.setGravity(Gravity.BOTTOM, 0, 10); 
+						toast.show();
 
 						Log.d(LOG_TAG,
 								"totalcosts: "
@@ -417,10 +443,61 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 					startSaving.setText(R.string.register_parking);
 					startSaving.setBackgroundColor(getResources().getColor(
 							R.color.red1));
+					
+					//reset tollinterface
+					tollInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_tolls);
+					tollSaving.setBackgroundColor(getResources().getColor(R.color.menublue));				
+					//reset reginterface
+					proInterface.setVisibility(View.GONE);
+					((MainActivity) getActivity()).changeArrowD(R.id.arrow_progress);
+					proButton.setBackgroundColor(getResources().getColor(R.color.menublue));
+					
+					((MainActivity) getActivity()).changeArrow(R.id.arrow_saving);
 				}
 
 			}
 		});
+		
+		
+		// finding button
+		Button bselect2 = (Button) v.findViewById(R.id.selectb);
+
+		// setting onclicklistened
+		bselect2.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+
+				// call shoeEcitDialog
+				// showEditDialog();
+
+				// car dialog radio from main activity
+				((MainActivity) getActivity()).startDialogRadio();
+			}
+		});
+		
+		
+		
+		
+	     if (product != null){
+	        	
+	            /** Getting the reference of the textview from the main layout */
+	            TextView tv = (TextView) v.findViewById(R.id.savingitem);
+	     
+	            /** Setting the selected android version in the textview */
+	        	
+	        	tv.setText("You are saving for: " + product);
+	        	
+	    		// finding progressbar
+	    		pb = (ProgressBar) v.findViewById(R.id.pgbAwardProgress);
+
+	    		// setting progressbar options
+	    		pb.setVisibility(View.VISIBLE);
+	    		pb.setMax(productPrice);
+	    		pb.setProgress(totalCosts);
+	    		pb.setIndeterminate(false);
+	        	
+	        }
+
 
 	}
 
