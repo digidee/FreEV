@@ -20,7 +20,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String PRODUCT_COLUMN_PRICE = "price";
 	
 	
-	private static final String DATABASE_NAME = "loggings.db";
+	private static final String DATABASE_NAME = "loggings9.db";
 	private static final int DATABASE_VERSION = 1;
 	
 	// Database creation sql statement table logging
