@@ -327,7 +327,8 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 						ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 						Logging log = null;
 						log = datasource
-								.createLog(parkTime, tollBar);
+								.createLog("Toll", date, 1, tollBar, tollBar);
+
 						adapter.add(log);
 
 						String toastTime = "Toll pass registered!" + "\n"
@@ -414,8 +415,18 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 
 						// Add time to database
 						//ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
-						datasource.createLog(parkTime, totalbar);
+						datasource.createLog("Parking", date, timebar, costbar, totalbar);
+						
+						Log.d(LOG_TAG,
+								"date: " + date
+								+"timebar: " + timebar
+								+"costbar: " + costbar
+								+"totalbar: "+ totalbar);
+						
+						
 						//adapter.add(log);
+						
+						//createLog(String type, String date, int time, int costs, int totalCosts)
 
 						String toastTime = "Parking registered!" + "\n"
 								+ parkTime;
