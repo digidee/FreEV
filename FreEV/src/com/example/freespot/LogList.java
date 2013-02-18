@@ -1,6 +1,7 @@
 package com.example.freespot;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,43 +27,45 @@ public class LogList extends ListFragment {
 
 	private static final String LOG_TAG = "FreEV_LogList";
 
+	List<Logging> values;
+
+	/*
+	 * 
+	 * SETTING UP TEST ARRAYS FOR CUSTOM LIST VIEW ADAPTER
+	 * 
+	 * 
+	 * List<Logging> rowItems;
+	 * 
+	 * // Test set public static final long[] id_set = new long[] { 1, 2, 3, 4
+	 * }; public static final String[] type_set = new String[] { "Parking",
+	 * "Toll", "Parking", "Toll" }; public static final String[] date_set = new
+	 * String[] { "01.01.2013", "02.02.2013", "03.03.2013", "04.04.2013" };
+	 * public static final int[] time_set = new int[] { 10, 20, 30, 40 }; public
+	 * static final int[] costs_set = new int[] { 15, 25, 35, 45 }; public
+	 * static final int[] totalcosts_set = new int[] { 150, 500, 1050, 1800 };
+	 * 
+	 * /*
+	 * 
+	 * 
+	 * END OF VARIABLES USED FOR TESTING CUSTOM LIST VIEW ADAPTER
+	 * 
+	 * 
+	 * 
+	 * *
+	 */
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		/*
-		 * 
-		 * values = new String[] { "Test", "Test" }; ArrayAdapter<String>
-		 * adapter = new ArrayAdapter<String>(getActivity(), R.layout.rowlayout,
-		 * R.id.label, values);
-		 * 
-		 * setListAdapter(adapter);
-		 */
-
 		datasource = new LoggingDataSource(getActivity());
 		datasource.open();
 
-		List<Logging> values = datasource.getAllLogs();
+		values = datasource.getAllLogs();
 
-		// Use the SimpleCursorAdapter to show the
-		// elements in a ListView
-		ArrayAdapter<Logging> adapter = new ArrayAdapter<Logging>(
-				getActivity(), R.layout.rowlayout, R.id.label, values);
-		setListAdapter(adapter);
-
-		for (Logging logs : values) {
-			
-
-			
-			String log = "Id: " + logs.getId() + ", Name: " + logs.getType()
-					+ ", Total Costs: " + logs.getTotalCosts();
-			// Writing to log
-			Log.d(LOG_TAG, "Log: " + log);
-			
-
-		}
-		
-		idd = (int) values.get(0).getId();
+		// Get the id of the first element in values-list
+		if (!values.isEmpty())
+			idd = (int) values.get(0).getId();
 
 	}
 
@@ -70,8 +73,24 @@ public class LogList extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View v = inflater.inflate(R.layout.fragment_parkinglog, container,
-				false);
+		View v = inflater.inflate(R.layout.fragment_loglist, container, false);
+
+		/*
+		 * POPULATING TEST ARRAY ROWITEMS FOR CUSTOM LIST VIEW ADAPTER
+		 * 
+		 * rowItems = new ArrayList<Logging>(); for (int i = 0; i <
+		 * id_set.length; i++) { Logging item = new Logging(id_set[i],
+		 * type_set[i], date_set[i], time_set[i], costs_set[i],
+		 * totalcosts_set[i]); rowItems.add(item); }
+		 * 
+		 * END OF TESTING CUSTOM LIST VIEW ADAPTER
+		 */
+
+		// Testing Custom LIST VIEW ADAPTER
+		CustomListViewAdapter adapter = new CustomListViewAdapter(
+				getActivity(), R.layout.list_item, values);
+		setListAdapter(adapter);
+		// END OF TESTING
 
 		// finding button
 		Button bselect = (Button) v.findViewById(R.id.delete);
@@ -80,15 +99,24 @@ public class LogList extends ListFragment {
 		bselect.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
+				// delete the first item in the list
+				/*
+				 * ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>)
+				 * getListAdapter(); Logging log = null; if
+				 * (getListAdapter().getCount() > 0) { log = (Logging)
+				 * getListAdapter().getItem(0); datasource.deleteLog(log);
+				 * adapter.remove(log); }
+				 */
+				// delete the entire list
+				Logging log = null;
 				ArrayAdapter<Logging> adapter = (ArrayAdapter<Logging>) getListAdapter();
 
-				Logging log = null;
-
-				if (getListAdapter().getCount() > 0) {
-					log = (Logging) getListAdapter().getItem(0);
+				for (int i = 0; i < adapter.getCount(); i++) {
+					log = (Logging) getListAdapter().getItem(i);
 					datasource.deleteLog(log);
 					adapter.remove(log);
 				}
+
 
 			}
 		});
@@ -99,16 +127,27 @@ public class LogList extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView list, View v, int position, long id) {
+
+		// diff idd(id database) and position(list click) (might differ if
+		// deleted list - auto increment - new entry starts from previous last
+		// item + 1)
+		int newpos = position + idd;
+
 		/**
 		 * Toast message will be shown when you click any list element
 		 */
-		Toast.makeText(getActivity(),
-				getListView().getItemAtPosition(position).toString(),
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(
+				getActivity(),
+				values.get(position).getType() + " ticket \n"
+						+ values.get(position).getDate(), Toast.LENGTH_SHORT)
+				.show();
+		// Alternative method to get the first element in the clicked row, i.e.
+		// parking/toll
+		// getListView().getItemAtPosition(position).toString()
 
-		Log.d(LOG_TAG, "position: " + position + "ID:" +idd);
+		Log.d(LOG_TAG, "position: " + position + "ID:" + idd);
 		Intent i = new Intent(getActivity(), LogActivity.class);
-		i.putExtra("pos", position+idd);
+		i.putExtra("pos", newpos);
 		startActivity(i);
 
 	}

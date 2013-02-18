@@ -127,7 +127,7 @@ public class OverView extends ListFragment implements OnSeekBarChangeListener {
 		List<Logging> values = datasource.getAllLogs();
 
 		ArrayAdapter<Logging> adapter = new ArrayAdapter<Logging>(
-				getActivity(), R.layout.rowlayout, R.id.label, values);
+				getActivity(), R.layout.list_item, R.id.li_totalcost, values);
 		setListAdapter(adapter);
 
 		for (Logging logs : values) {

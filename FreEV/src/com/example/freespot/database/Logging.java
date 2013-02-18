@@ -14,7 +14,7 @@ public class Logging {
 	}
 
 	// Constructor
-	public Logging(int id, String type, String date, int time, int costs, int totalCosts) {
+	public Logging(long id, String type, String date, int time, int costs, int totalCosts) {
 		this.id = id;
 		this.type = type;
 		this.date = date;
